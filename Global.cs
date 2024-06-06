@@ -1,6 +1,5 @@
 ﻿using Chrona.Engine.Core;
 using Godot;
-using System;
 using System.IO;
 
 namespace Chrona.Engine.Godot;
@@ -31,6 +30,8 @@ public partial class Global : Node
     {
         this.session = session;
         this.session.Modder = Modder;
+
+        Event.ProcessMessage = session.OnMessage;
     }
 
     public IModder Modder { get; set; } = new Modder(ModPath);

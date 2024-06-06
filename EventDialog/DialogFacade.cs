@@ -28,13 +28,14 @@ public partial class DialogFacade : Control
     {
         EmitSignal(SignalName.TurnStart);
 
-        foreach (var @event in Global.GetSession<ISession>().OnNextTurn())
+        foreach (Event @event in Global.GetSession<ISession>().OnNextTurn())
         {
             var dialog = Dialog.CreateInstance();
 
             GD.Print("Visible");
 
             await ToSignal(dialog, Control.SignalName.TreeExited);
+            @event.DoOption();
 
             GD.Print("await");
 
