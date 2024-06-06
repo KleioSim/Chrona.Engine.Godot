@@ -1,4 +1,7 @@
 ﻿using Chrona.Engine.Core;
+using Chrona.Engine.Core.Events;
+using Chrona.Engine.Core.Interfaces;
+using Chrona.Engine.Core.Modders;
 using Godot;
 using System.IO;
 
@@ -20,21 +23,5 @@ public partial class Global : Node
         }
     }
 
-    public T GetSession<T>()
-        where T : ISession
-    {
-        return (T)session;
-    }
-
-    public void SetSession(ISession session)
-    {
-        this.session = session;
-        this.session.Modder = Modder;
-
-        Event.ProcessMessage = session.OnMessage;
-    }
-
-    public IModder Modder { get; set; } = new Modder(ModPath);
-
-    private ISession session;
+    public Chroncle Chroncle { get; } = new Chroncle(new Modder(ModPath));
 }

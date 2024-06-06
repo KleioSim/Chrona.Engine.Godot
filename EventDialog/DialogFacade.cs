@@ -1,4 +1,5 @@
-﻿using Chrona.Engine.Core;
+﻿using Chrona.Engine.Core.Events;
+using Chrona.Engine.Core.Interfaces;
 using Godot;
 using HuangD.Sessions;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ public partial class DialogFacade : Control
     {
         EmitSignal(SignalName.TurnStart);
 
-        foreach (Event @event in Global.GetSession<ISession>().OnNextTurn())
+        foreach (Event @event in Global.Chroncle.OnNextTurn())
         {
             var dialog = Dialog.CreateInstance();
 
