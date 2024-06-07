@@ -23,5 +23,10 @@ public partial class Global : Node
         }
     }
 
-    public Chroncle Chroncle { get; } = new Chroncle(new Modder(ModPath));
+    public Chroncle Chroncle { get; private set; }
+
+    public override void _Ready()
+    {
+        Chroncle = new Chroncle(new Modder(ModPath));
+    }
 }
