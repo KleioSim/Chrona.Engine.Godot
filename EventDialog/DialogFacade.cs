@@ -31,12 +31,12 @@ public partial class DialogFacade : Control
 
         foreach (Event @event in Global.Chroncle.OnNextTurn())
         {
-            var dialog = Dialog.CreateInstance();
+            var dialog = Dialog.CreateInstance() as Dialog;
+            dialog.eventObj = @event;
 
             GD.Print("Visible");
 
             await ToSignal(dialog, Control.SignalName.TreeExited);
-            @event.DoOption();
 
             GD.Print("await");
 
