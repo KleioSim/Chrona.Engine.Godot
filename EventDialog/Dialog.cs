@@ -17,6 +17,6 @@ public partial class Dialog : Panel
 
     void OnConfirm()
     {
-        eventObj.DoOption();
+        eventObj.Option.Do();
     }
 }
