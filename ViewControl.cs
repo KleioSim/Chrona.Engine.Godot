@@ -14,13 +14,16 @@ public abstract partial class ViewControl : Control
     public ISession Session => GetNode<Global>("/root/Chrona_Global").Chroncle.Session;
 
     public bool IsInitialized { get; private set; } = false;
-    public bool IsDirty { get; internal set; }
+    public bool IsDirty { get; private set; }
 
     public ViewControl()
     {
         SendCommand += (message) =>
         {
-            Session.OnMessage(message);
+            if (message is not Message_UIRefresh)
+            {
+                Session.OnMessage(message);
+            }
 
             foreach (var item in list)
             {
@@ -74,4 +77,10 @@ public abstract partial class ViewControl : Control
 
     protected abstract void Initialize();
     protected abstract void Update();
+}
+
+public class Message_UIRefresh : IMessage
+{
+    public object Target { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public object Value { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 }
