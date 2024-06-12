@@ -14,7 +14,7 @@ public abstract partial class ViewControl : Control
     public ISession Session => GetNode<Global>("/root/Chrona_Global").Chroncle.Session;
 
     public bool IsInitialized { get; private set; } = false;
-    public bool IsDirty { get; private set; }
+    public bool IsDirty { get; internal set; }
 
     public ViewControl()
     {
