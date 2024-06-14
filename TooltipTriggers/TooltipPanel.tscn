@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnvxprapsj5cd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oweud"]
+
+[node name="TooltipPanel" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_oweud")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "--"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
