@@ -43,5 +43,7 @@ public partial class DialogFacade : Control
         }
 
         EmitSignal(SignalName.TurnEnd);
+
+        ViewControl.SendCommand(new Message_UIRefresh());
     }
 }
