@@ -2,10 +2,12 @@
 using Chrona.Engine.Core.Events;
 using Chrona.Engine.Core.Interfaces;
 using Chrona.Engine.Core.Modders;
+using Chrona.Engine.Godot.Utilties;
 using Godot;
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace Chrona.Engine.Godot;
 
@@ -23,11 +25,12 @@ public partial class Global : Node
 
     private void CreateNativeMode(string modPath)
     {
-        var sourcePath = OS.GetExecutablePath();
-        if (OS.HasFeature("editor"))
-        {
-            sourcePath = Path.Combine(ProjectSettings.GlobalizePath("res://"), ".godot/mono/temp/bin/Debug");
-        }
+        var sourcePath = OS.HasFeature("editor") ?
+            Path.Combine(ProjectSettings.GlobalizePath("res://"), ".godot/mono/temp/bin/Debug")
+          : Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+        LOG.INFO(Assembly.GetExecutingAssembly().Location);
+        ;
 
         var files = Directory.EnumerateFiles(sourcePath, "*Native*");
         if (files.Any())
