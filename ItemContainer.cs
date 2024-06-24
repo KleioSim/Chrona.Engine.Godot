@@ -38,7 +38,7 @@ public class ItemContainer<T> where T : Control, IItemView
 
     public void RemoveItem(T item)
     {
-        itemPlaceHolder().GetParent().RemoveChild(item);
+        item.QueueFree();
     }
 
     public IEnumerable<T> Refresh(HashSet<object> keys)
