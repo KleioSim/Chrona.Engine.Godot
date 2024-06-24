@@ -21,6 +21,8 @@ public partial class Plugin : EditorPlugin
 
     public override void _ExitTree()
     {
+        RemoveAutoloadSingleton("Chrona_Global");
+
         RemoveCustomType("Chrona.EventDialog");
         RemoveCustomType("Chrona.ToolTipTrigger");
     }
