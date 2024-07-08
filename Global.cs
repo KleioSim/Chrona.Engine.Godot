@@ -25,19 +25,17 @@ public partial class Global : Node
 
     private void CreateNativeMode(string modPath)
     {
+        var targetPath = Path.Combine(modPath, "native/dll");
+        Directory.Delete(targetPath, true);
+        Directory.CreateDirectory(targetPath);
+
         var sourcePath = OS.HasFeature("editor") ?
             Path.Combine(ProjectSettings.GlobalizePath("res://"), ".godot/mono/temp/bin/Debug")
           : Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-        LOG.INFO(Assembly.GetExecutingAssembly().Location);
-        ;
-
         var files = Directory.EnumerateFiles(sourcePath, "*Native*");
         if (files.Any())
         {
-            var targetPath = Path.Combine(modPath, "native/dll");
-            Directory.CreateDirectory(targetPath);
-
             foreach (var file in files)
             {
                 File.Copy(file, Path.Combine(targetPath, Path.GetFileName(file)), true);
