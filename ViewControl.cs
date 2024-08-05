@@ -8,21 +8,20 @@ namespace Chrona.Engine.Godot;
 
 public abstract partial class ViewControl : Control
 {
-    public static Action<IMessage> SendCommand;
+    public static Action<IMessage> OnMessage;
+    protected static Action<IMessage> SendCommand { get;  private set; }
     private static List<ViewControl> list = new List<ViewControl>();
-
-    public ISession Session => GetNode<Global>("/root/Chrona_Global").Chroncle.Session;
 
     public bool IsInitialized { get; private set; } = false;
     public bool IsDirty { get; private set; }
 
     public ViewControl()
     {
-        SendCommand += (message) =>
+        SendCommand = (message) =>
         {
             if (message is not Message_UIRefresh)
             {
-                Session.OnMessage(message);
+                OnMessage(message);
             }
 
             foreach (var item in list)

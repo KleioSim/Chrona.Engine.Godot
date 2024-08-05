@@ -4,7 +4,7 @@ using Godot;
 namespace Chrona.Engine.Godot.EventDialog;
 
 [Tool]
-public partial class DialogFacade : Control
+public partial class DialogFacade : ViewControl
 {
     public DialogFacade()
     {
@@ -41,6 +41,16 @@ public partial class DialogFacade : Control
 
         EmitSignal(SignalName.TurnEnd);
 
-        ViewControl.SendCommand(new Message_UIRefresh());
+        SendCommand(new Message_UIRefresh());
+    }
+
+    protected override void Initialize()
+    {
+
+    }
+
+    protected override void Update()
+    {
+
     }
 }
