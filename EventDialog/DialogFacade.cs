@@ -22,27 +22,27 @@ public partial class DialogFacade : ViewControl
     public InstancePlaceholder Dialog => GetNode<InstancePlaceholder>("EventDialogRoot/Dialog");
 
 
-    public async void OnNextTurn()
-    {
-        EmitSignal(SignalName.TurnStart);
+    //public async void OnNextTurn()
+    //{
+    //    EmitSignal(SignalName.TurnStart);
 
-        foreach (Event @event in Global.Chroncle.OnNextTurn())
-        {
-            var dialog = Dialog.CreateInstance() as Dialog;
-            dialog.eventObj = @event;
+    //    foreach (Event @event in Global.Chroncle.OnNextTurn())
+    //    {
+    //        var dialog = Dialog.CreateInstance() as Dialog;
+    //        dialog.eventObj = @event;
 
-            GD.Print("Visible");
+    //        GD.Print("Visible");
 
-            await ToSignal(dialog, Control.SignalName.TreeExited);
+    //        await ToSignal(dialog, Control.SignalName.TreeExited);
 
-            GD.Print("await");
+    //        GD.Print("await");
 
-        }
+    //    }
 
-        EmitSignal(SignalName.TurnEnd);
+    //    EmitSignal(SignalName.TurnEnd);
 
-        SendCommand(new Message_UIRefresh());
-    }
+    //    SendCommand(new Message_UIRefresh());
+    //}
 
     protected override void Initialize()
     {
