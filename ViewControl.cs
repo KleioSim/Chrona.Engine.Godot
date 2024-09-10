@@ -9,11 +9,11 @@ namespace Chrona.Engine.Godot;
 public abstract partial class ViewControl : Control
 {
     public static Action<IMessage> OnMessage;
-    protected static Action<IMessage> SendCommand { get;  private set; }
+    protected static Action<IMessage> SendCommand { get; private set; }
     private static List<ViewControl> list = new List<ViewControl>();
 
     public bool IsInitialized { get; private set; } = false;
-    public bool IsDirty { get; private set; }
+    public bool IsDirty { get; set; }
 
     public ViewControl()
     {
