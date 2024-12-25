@@ -19,8 +19,9 @@ public partial class Global : Node
     {
         var modPath = Path.Combine(ProjectSettings.GlobalizePath("user://"), "mods");
 
-        CreateNativeMode(modPath);
-        Chroncle = new Chroncle(new Modder(modPath));
+        //CreateNativeMode(modPath);
+        //Chroncle = new Chroncle(new Modder(modPath));
+        Chroncle = new Chroncle(null);
     }
 
     private void CreateNativeMode(string modPath)
