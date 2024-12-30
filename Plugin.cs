@@ -9,6 +9,7 @@ public partial class Plugin : EditorPlugin
     public override void _EnterTree()
     {
         AddAutoloadSingleton("Chrona_Global", "res://addons/Chrona.Engine.Godot/Global.cs");
+        AddAutoloadSingleton("Chrona_ViewMgr", "res://addons/Chrona.Engine.Godot/ViewManager.cs");
 
         var script = GD.Load<Script>("res://addons/Chrona.Engine.Godot/EventDialog/DialogFacade.cs");
         var texture = GD.Load<Texture2D>("res://addons/Chrona.Engine.Godot/Icon.png");

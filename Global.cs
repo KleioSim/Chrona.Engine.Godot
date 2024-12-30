@@ -5,9 +5,11 @@ using Chrona.Engine.Core.Modders;
 using Chrona.Engine.Godot.Utilties;
 using Godot;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using GodotEngine = Godot.Engine;
 
 namespace Chrona.Engine.Godot;
 
