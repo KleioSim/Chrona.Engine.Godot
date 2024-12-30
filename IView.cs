@@ -29,6 +29,12 @@ public static class CanvasItemExtension
         return (T)mock;
     }
 
+    public static void SetSession<T>(this CanvasItem item, T session)
+    {
+        var chroncle = item.GetNode<Global>("/root/Chrona_Global").Chroncle;
+        chroncle.Session = session;
+    }
+
     public static void RefreshItems<T2>(this InstancePlaceholder prototype, IEnumerable<T2> objects, Action<CanvasItem, T2> action = null)
     {
         var items = prototype.GetParent().GetChildren()
