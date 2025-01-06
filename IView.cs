@@ -23,7 +23,7 @@ public static class CanvasItemExtension
             return (T)chroncle.Session;
         }
 
-        var mockDataType = item.GetType().GetInterfaces().Single(x=>x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IMockData<>));
+        var mockDataType = item.GetType().GetInterfaces().Single(x=>x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IMockSession<>));
 
         var mock = mockDataType.GetProperty("Mock").GetValue(item, null);
         return (T)mock;
@@ -35,13 +35,14 @@ public static class CanvasItemExtension
         chroncle.Session = session;
     }
 
-    public static void RefreshItems<T2>(this InstancePlaceholder prototype, IEnumerable<T2> objects, Action<CanvasItem, T2> action = null)
+    public static void RefreshItems<T2>(this InstancePlaceholder prototype, IEnumerable<T2> objects, Action<CanvasItem, T2> action = null, int minCount = 0)
     {
         var items = prototype.GetParent().GetChildren()
             .OfType<CanvasItem>()
             .Where(x => x.Name.ToString().Contains($"{prototype.Name}")).ToList();
 
-        var changeCount = items.Count() - objects.Count();
+        var needCount = Math.Max(objects.Count(), minCount);
+        var changeCount = items.Count() - needCount;
         if (changeCount > 0)
         {
             foreach(var item in items.TakeLast(changeCount))
@@ -56,19 +57,28 @@ public static class CanvasItemExtension
                 var newItem = prototype.CreateInstance() as CanvasItem;
                 newItem.Name = prototype.Name;
                 items.Add(newItem);
+
+                newItem.SetMeta("NewFlag", true);
             }
         }
 
-        for(int i=0; i< objects.Count(); i++)
+        for(int i=0; i< needCount; i++)
         {
-            action?.Invoke(items[i], objects.ElementAt(i));
+            action?.Invoke(items[i], objects.Count() > i ? objects.ElementAt(i) : default(T2));
             items[i].Visible = true;
+            items[i].SetMeta("NewFlag", false);
         }
     }
 }
 
-public interface IMockData<T>
+public interface IMockBinding<T>
     where T : class, new()
+{
+    T Mock => new T();
+}
+
+public interface IMockSession<T>
+        where T : class, new()
 {
     T Mock => new T();
 }

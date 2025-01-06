@@ -42,7 +42,7 @@ public static class IBindingExtension
             return (T)value;
         }
 
-        var mockDataType = item.GetType().GetInterfaces().Single(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IMockData<>));
+        var mockDataType = item.GetType().GetInterfaces().Single(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IMockBinding<>));
         var mock = mockDataType.GetProperty("Mock").GetValue(item, null);
         return (T)mock;
     }
